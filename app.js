@@ -11,7 +11,6 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, 'public')));
-//app.locals.name = "";
 app.get('/', function(req,res){
 res.send('Hello World - Rahul');    
 	});
@@ -29,12 +28,37 @@ app.get('/robots.txt', function(req,res){
 app.get('/html', function(req,res){
 	res.render('index');
 })
-app.get('/input', urlencodedParser, function(req,res){
+/*app.get('/input', urlencodedParser, function(req,res){
 	res.render('posting', {qs: req.query});
-})
-app.post('/input', urlencodedParser, function(req,res){
+})*/
+/*app.post('/input', urlencodedParser, function(req,res){
 res.render('output',{data: req.body});
+})*/
+app.get('/input',function(req,res){
+	res.render('posting');
 })
+app.post('/output',function(req,res){
+	var out = req.body.what;
+	res.send(out);
+})
+
+app.get('/author',function(req, res){
+	fetch('https://jsonplaceholder.typicode.com/users')
+    .then(function(res) {
+        return res.json();
+    }).then(function(body) {
+         app.locals.any = body;
+     });
+    fetch('https://jsonplaceholder.typicode.com/posts')
+    .then(function(res) {
+        return res.json();
+    }).then(function(data) {
+         app.locals.book = data;
+    res.render('author');
+    });
+     
+})
+
 
 app.listen(3000,function(){
 	console.log('Server started in Port 3000...');

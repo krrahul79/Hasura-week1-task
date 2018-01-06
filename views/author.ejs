@@ -1,0 +1,19 @@
+<html>
+<head>
+</head>
+<body>
+	<ul>
+	  <% any.forEach(function(item){%>
+      <% var count = 0;%>
+      <% book.forEach(function(books){%>
+      <%var a = item.id%>
+      <%var b = books.userId%>
+      <%if(a===b)
+      count++;
+      %> 
+	   <%});%>
+	    <li><%=item.name%> has <%=count%> book</li>
+	  <%});%>
+    </ul>
+</body>
+</html>
